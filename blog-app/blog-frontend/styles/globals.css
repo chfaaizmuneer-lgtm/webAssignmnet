@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ──────────────────────────────────────────── */
+@layer base {
+  :root {
+    --bg:        #faf9f7;
+    --fg:        #28221c;
+    --muted:     #7d6c52;
+    --border:    #e8e4dc;
+    --card:      #ffffff;
+    --accent:    #e85d26;
+  }
+
+  .dark {
+    --bg:        #141210;
+    --fg:        #f4f2ee;
+    --muted:     #99876a;
+    --border:    #2a2318;
+    --card:      #1e1a15;
+    --accent:    #f07a4a;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-body antialiased;
+    background-color: var(--bg);
+    color: var(--fg);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  * {
+    border-color: var(--border);
+  }
+}
+
+/* ─── Components ─────────────────────────────────────── */
+@layer components {
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    @apply rounded-2xl overflow-hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .card:hover {
+    @apply -translate-y-1;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  }
+
+  .dark .card:hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  }
+
+  .btn {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-body font-semibold text-sm transition-all duration-200 cursor-pointer select-none;
+  }
+
+  .btn-primary {
+    @apply btn text-white;
+    background: var(--accent);
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    @apply btn;
+    background: var(--border);
+    color: var(--fg);
+  }
+
+  .btn-ghost:hover {
+    filter: brightness(0.95);
+  }
+
+  .input {
+    @apply w-full px-4 py-3 rounded-xl text-sm font-body outline-none transition-all duration-200;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    color: var(--fg);
+  }
+
+  .input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(232, 93, 38, 0.12);
+  }
+
+  .input::placeholder {
+    color: var(--muted);
+  }
+
+  .tag {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold;
+    background: var(--border);
+    color: var(--muted);
+  }
+
+  /* Shimmer skeleton */
+  .skeleton {
+    @apply rounded-xl;
+    background: linear-gradient(
+      90deg,
+      var(--border) 25%,
+      color-mix(in srgb, var(--border) 70%, var(--bg)) 50%,
+      var(--border) 75%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 1.8s infinite;
+  }
+
+  /* Rich text content styles */
+  .prose-blog h2 { @apply font-display text-2xl font-bold mt-8 mb-4; }
+  .prose-blog h3 { @apply font-display text-xl font-semibold mt-6 mb-3; }
+  .prose-blog p  { @apply mb-4 leading-relaxed; }
+  .prose-blog ul { @apply list-disc ml-6 mb-4 space-y-1; }
+  .prose-blog ol { @apply list-decimal ml-6 mb-4 space-y-1; }
+  .prose-blog blockquote {
+    @apply border-l-4 pl-4 italic my-6;
+    border-color: var(--accent);
+    color: var(--muted);
+  }
+  .prose-blog code {
+    @apply font-mono text-sm px-1.5 py-0.5 rounded;
+    background: var(--border);
+  }
+  .prose-blog a {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+}
+
+/* ─── Quill editor overrides ─────────────────────────── */
+.ql-toolbar {
+  background: var(--border) !important;
+  border: 1.5px solid var(--border) !important;
+  border-bottom: none !important;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+.ql-container {
+  border: 1.5px solid var(--border) !important;
+  border-radius: 0 0 12px 12px !important;
+  background: var(--bg) !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 15px !important;
+  min-height: 300px;
+  color: var(--fg) !important;
+}
+
+.ql-editor { min-height: 280px; }
